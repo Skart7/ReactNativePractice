@@ -1,20 +1,27 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react'
+import { EvaIconsPack } from '@ui-kitten/eva-icons'
+import * as eva from '@eva-design/eva'
+import { default as theme } from './theme.json'
+
+import { ApplicationProvider, IconRegistry } from '@ui-kitten/components'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
+import NavigationProvider from './src/components/providers/navigation'
+import {CartProvider} from './src/components/providers/cart'
+
+import 'react-native-gesture-handler'
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+  return (
+    <>
+      <IconRegistry icons={EvaIconsPack} />
+      <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
+        <SafeAreaProvider>
+          <CartProvider>
+            <NavigationProvider />
+          </CartProvider>
+        </SafeAreaProvider>
+      </ApplicationProvider>
+    </>
+  )
+}
